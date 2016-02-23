@@ -46,24 +46,26 @@
 </div>
 
 <div id="answers">
-
-    @foreach (var answer in Model.PostAnswers)
-    {
-        <div>
-            <h3>@Html.Raw(answer.Answer)</h3>
-            <p>Created at: @answer.CreatedAt</p>
-            <p>By: @answer.User.UserName</p>
-        </div>
-        if (ViewBag.userId == answer.UserID)
+    <div id="answers-content">
+        @foreach (var answer in Model.PostAnswers)
         {
             <div>
-                <text>
-                    @Html.ActionLink("Edit", "Edit", "PostAnswers", new { id = answer.PostAnswerID }, null) |
-                    @Html.ActionLink("Delete", "Delete", "PostAnswers", new { id = answer.PostAnswerID }, null)
-                </text>
+                <p>@Html.Raw(answer.Answer)</p>
+                <p class="sm-text">Created at: @answer.CreatedAt</p>
+                <p class="sm-text">By: @answer.User.UserName</p>
             </div>
+            if (ViewBag.userId == answer.UserID)
+            {
+                <div>
+                    <text>
+                        @Html.ActionLink("Edit", "Edit", "PostAnswers", new { id = answer.PostAnswerID }, null) |
+                        @Html.ActionLink("Delete", "Delete", "PostAnswers", new { id = answer.PostAnswerID }, null)
+                    </text>
+                </div>
+            }
+            <hr />
         }
-    }
+    </div>
 </div>
 
 <div #id="answers-form">

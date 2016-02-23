@@ -31,7 +31,7 @@
                             <p id="post-username">By @Html.DisplayFor(m => Model.ElementAt(i).User.UserName)</p>
                         </div>
                         <div class="clearfix"></div>
-                        <p class="post-operations">
+                        <p class="sm-text">
                             @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(i).PostID })
                             @if (ViewBag.userId == Model.ElementAt(i).UserID)
                             {
