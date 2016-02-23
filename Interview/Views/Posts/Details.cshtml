@@ -1,0 +1,112 @@
+﻿@model Interview.ViewModels.PostAnswerViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PostName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostQuestion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostQuestion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+    </dl>
+</div>
+
+<div id="answers">
+
+    @foreach (var answer in Model.PostAnswers)
+    {
+        <div>
+            <h3>@Html.Raw(answer.Answer)</h3>
+            <p>Created at: @answer.CreatedAt</p>
+            <p>By: @answer.User.UserName</p>
+        </div>
+        if (ViewBag.userId == answer.UserID)
+        {
+            <div>
+                <text>
+                    @Html.ActionLink("Edit", "Edit", "PostAnswers", new { id = answer.PostAnswerID }, null) |
+                    @Html.ActionLink("Delete", "Delete", "PostAnswers", new { id = answer.PostAnswerID }, null)
+                </text>
+            </div>
+        }
+    }
+</div>
+
+<div #id="answers-form">
+    @using (Html.BeginForm("CreateAnswer", "PostAnswers", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-md-8">
+                    @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.HiddenFor(model => model.PostID)
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<p>
+    @if (ViewBag.userId == Model.User.Id)
+    {
+        <text>@Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |</text>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/customjs")
+
+    <script>
+        CKEDITOR.replace("Answer");
+    </script>
+}
+
+
+
+

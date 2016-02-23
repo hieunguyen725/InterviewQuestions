@@ -1,0 +1,55 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* NAV */
+.navbar {
+    background-color: #4FC1E9 !important;
+}
+
+.navbar a {
+    color: #ffffff !important;
+}
+
+.navbar a:hover {
+    background-color: #000000 !important;
+}
+
+/* Index (Posts) */
+.top-btn-group {
+    margin: 15px 0 10px 0;
+}
+
+.post-operations {
+    font-size: 0.8em;
+}
+
+.post-info #post-createdat {
+    float: left;
+}
+.post-info #post-username {
+    float: right;
+}
+
+.panel {
+    float:left;
+    margin-right: 5px;
+}
+.panel-body {
+    text-align:center;
+}
+
