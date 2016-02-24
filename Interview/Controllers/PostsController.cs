@@ -16,6 +16,34 @@ namespace Interview.Controllers
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private List<string> categories;
+
+        public PostsController()
+        {
+            categories = new List<string>
+            {
+                "Data Structure", "Algorithm", "Operating System",
+                "Programming Fundamentals", "Mobile Development",
+                "Web Development", "Database", "Other"
+            };
+            ViewBag.Categories = categories;
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult LoadCategory(string category)
+        {
+            List<Post> model;
+            if (category == "All")
+            {
+                model = db.Posts.ToList();
+            }
+            else
+            {
+                model = db.Posts.Where(q => q.SelectedCategory == category).ToList();
+            }
+            ViewBag.userId = User.Identity.GetUserId();
+            return PartialView("LoadCategory", model);
+        }
 
         [AllowAnonymous]
         // GET: Posts
@@ -65,7 +93,7 @@ namespace Interview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,PostQuestion")] Post post)
+        public ActionResult Create([Bind(Include = "Name,PostQuestion,SelectedCategory")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +131,7 @@ namespace Interview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Name,PostQuestion,CreatedAt,UserID,ViewCount")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,Name,PostQuestion,CreatedAt,UserID,ViewCount,SelectedCategory")] Post post)
         {
             if (ModelState.IsValid)
             {

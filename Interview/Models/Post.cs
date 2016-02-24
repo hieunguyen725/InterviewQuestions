@@ -18,6 +18,9 @@ namespace Interview.Models
         [Required]
         public string PostQuestion { get; set; }
 
+        [Display(Name = "Category")]
+        public String SelectedCategory { get; set; }
+
         public virtual ICollection<PostAnswer> PostAnswers { get; set; }
 
         public int ViewCount { get; set; }

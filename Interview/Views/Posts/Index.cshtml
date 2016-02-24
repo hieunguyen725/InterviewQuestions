@@ -4,12 +4,44 @@
     ViewBag.Title = "Index";
 }
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<br/>
+
+<div class="btn-group" role="group">
+
+    @Ajax.ActionLink("All Posts", "LoadCategory", new { category = "All" },
+     new AjaxOptions
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "post-list",
+         InsertionMode = InsertionMode.Replace
+     },
+     new { @class = "btn btn-default", @type = "button" }
+)
+
+    @foreach (string item in ViewBag.Categories)
+    {
+        @Ajax.ActionLink(item, "LoadCategory", new { category = item },
+     new AjaxOptions
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "post-list",
+         InsertionMode = InsertionMode.Replace
+     },
+     new { @class = "btn btn-default", @type = "button" }
+)
+    }
+
+</div>
+
 <div class="top-btn-group">
     @Html.ActionLink("New Posts", "Create", "Posts", null, new { @class = "btn btn-primary btn-sm" })
 </div>
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-8" id="post-list">
         @for (int i = 0; i < Model.Count(); i++)
         {
             <div class="row" style="position:relative">
@@ -53,7 +85,7 @@
 
         }
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3 col-sm-offset-1">
         <div class="row">
             <h5>Lastest Posts</h5>
         </div>
