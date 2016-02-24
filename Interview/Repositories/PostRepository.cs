@@ -40,9 +40,21 @@ namespace Interview.Repositories
             return db.Posts.Find(id);
         }
 
+        public IEnumerable<Post> GetPostByUser(string userId)
+        {
+            return db.Posts.Where(p => p.UserID == userId).ToList();
+        }
+
         public IEnumerable<Post> GetPostByCategory(string category)
         {
-            return db.Posts.Where(p => p.SelectedCategory == category).ToList();
+            if (category == "All")
+            {
+                return db.Posts.ToList();
+            }
+            else
+            {
+                return db.Posts.Where(p => p.SelectedCategory == category).ToList();
+            }
         }
 
         public IEnumerable<Post> GetPostBySearch(string search)

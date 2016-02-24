@@ -13,6 +13,8 @@ namespace Interview.Repositories
 
         Post GetPostById(int? id);
 
+        IEnumerable<Post> GetPostByUser(string userId);
+
         IEnumerable<Post> GetPostBySearch(string search);
 
         IEnumerable<Post> GetPostByCategory(string category);

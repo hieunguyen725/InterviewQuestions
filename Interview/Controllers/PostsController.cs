@@ -33,20 +33,22 @@ namespace Interview.Controllers
             ViewBag.Categories = categories;
         }
 
-        [AllowAnonymous]
-        public PartialViewResult LoadCategory(string category)
+        public ActionResult UserPost(int page = 1, int size = 5)
         {
-            IEnumerable<Post> model;
-            if (category == "All")
-            {
-                model = repo.GetAllPosts();
-            }
-            else
-            {
-                model = repo.GetPostByCategory(category);
-            }
+            string userId = User.Identity.GetUserId();
+            ViewBag.userId = userId;
+            PagedList<Post> model = new PagedList<Post>(repo.GetPostByUser(userId), page, size);
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult LoadCategory(string category, int page = 1, int size = 5)
+        {
             ViewBag.userId = User.Identity.GetUserId();
-            return PartialView("_Posts", model);
+            ViewBag.currentCategory = category;
+            PagedList<Post> pagedModel = new PagedList<Post>
+                (repo.GetPostByCategory(category), page, size);
+            return PartialView("_Posts", pagedModel);
         }
 
         [AllowAnonymous]
@@ -70,21 +72,15 @@ namespace Interview.Controllers
             return PartialView("_Posts", model);
         }
 
-        //[AllowAnonymous]
-        //// GET: Posts
-        //public ActionResult Index()
-        //{
-        //    ViewBag.userId = User.Identity.GetUserId();
-        //    return View(repo.GetAllPosts());
-        //}
-
         [AllowAnonymous]
         // GET: Question
-        public ActionResult Index(int page = 1, int size = 5)
+        public ActionResult Index(string currentCategory = "All", int page = 1, int size = 5)
         {
             ViewBag.userId = User.Identity.GetUserId();
-            PagedList<Post> model = new PagedList<Post>(repo.GetAllPosts(), page, size);
-            return View(model);
+            ViewBag.currentCategory = currentCategory;
+            PagedList<Post> pagedModel = new PagedList<Post>
+                (repo.GetPostByCategory(currentCategory), page, size);
+            return View(pagedModel);
         }
 
         [AllowAnonymous]

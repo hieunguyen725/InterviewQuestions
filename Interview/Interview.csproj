@@ -607,6 +607,7 @@
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Shared\_Posts.cshtml" />
     <Content Include="Views\Shared\_LatestPosts.cshtml" />
+    <Content Include="Views\Posts\UserPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
