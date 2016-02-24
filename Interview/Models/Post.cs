@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Interview.Models
 {
@@ -11,17 +12,20 @@ namespace Interview.Models
     {
         public int PostID { get; set; }
 
+        [Display(Name = "Title")]
         [Required]
-        public string Name { get; set; }
-
-        [Display(Name = "Question")]
+        public string PostTitle { get; set; }
+        
+        [AllowHtml]
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Content")]
         [Required]
-        public string PostQuestion { get; set; }
+        public string PostContent { get; set; }
 
         [Display(Name = "Category")]
         public String SelectedCategory { get; set; }
 
-        public virtual ICollection<PostAnswer> PostAnswers { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public int ViewCount { get; set; }
 

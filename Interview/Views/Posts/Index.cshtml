@@ -4,10 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
-<br/>
 
 <div class="btn-group" role="group">
 
@@ -18,7 +14,7 @@
          UpdateTargetId = "post-list",
          InsertionMode = InsertionMode.Replace
      },
-     new { @class = "btn btn-default", @type = "button" }
+     new { @class = "btn btn-primary", @type = "button" }
 )
 
     @foreach (string item in ViewBag.Categories)
@@ -30,69 +26,44 @@
          UpdateTargetId = "post-list",
          InsertionMode = InsertionMode.Replace
      },
-     new { @class = "btn btn-default", @type = "button" }
+     new { @class = "btn btn-primary", @type = "button" }
 )
     }
 
 </div>
 
-<div class="top-btn-group">
-    @Html.ActionLink("New Posts", "Create", "Posts", null, new { @class = "btn btn-primary btn-sm" })
-</div>
-
 <div class="row">
-    <div class="col-sm-8" id="post-list">
-        @for (int i = 0; i < Model.Count(); i++)
-        {
-            <div class="row" style="position:relative">
-                <div class="col-sm-3" style="position:relative;top:12px;left:20px">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Views</div>
-                        <div class="panel-body">@Html.DisplayFor(m => Model.ElementAt(i).ViewCount)</div>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Answers</div>
-                        <div class="panel-body">@Html.DisplayFor(m => Model.ElementAt(i).PostAnswers.Count)</div>
-                    </div>
-                </div>
-                <div class="col-sm-9">
-                    <div class="Post">
-                        <h4>@Html.DisplayFor(m => Model.ElementAt(i).Name)</h4>
-                        <div class="post-info">
-                            <p id="post-createdat">Posted on @Html.DisplayFor(m => Model.ElementAt(i).CreatedAt)</p>
-                            <p id="post-username">By @Html.DisplayFor(m => Model.ElementAt(i).User.UserName)</p>
-                        </div>
-                        <div class="clearfix"></div>
-                        <p class="sm-text">
-                            @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(i).PostID })
-                            @if (ViewBag.userId == Model.ElementAt(i).UserID)
-                            {
-                                <text>|</text>
-                                <text>@Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(i).PostID }) |</text>
-                                <text>@Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(i).PostID })</text>
-                            }
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    @if (i < Model.Count() - 1)
-                    {
-                        <text><hr /></text>
-                    }
-                </div>
-
-            </div>
-
-        }
+    <div class="col-sm-9" id="post-list">
+        @Html.Partial("_Posts")
     </div>
-    <div class="col-sm-3 col-sm-offset-1">
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="top-btn-group">
+                @Html.ActionLink("Create a new post", "Create", "Posts", null, new { @class = "btn btn-primary btn-sm" })
+            </div>
+            @using (Ajax.BeginForm("Search", "Posts", new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "post-list",
+                InsertionMode = InsertionMode.Replace
+            }, new { @class= "form-inline"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Editor("search")
+                @Html.ValidationMessage("search")
+                <button class="btn btn-default btn-sm" type="submit">Search</button>
+            }
+        </div>
         <div class="row">
             <h5>Lastest Posts</h5>
-        </div>
-        <div class="row">
-            <h5>Related Posts</h5>
+            <hr />
+            @Html.Action("LatestPosts", "Posts")
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+}
 
 

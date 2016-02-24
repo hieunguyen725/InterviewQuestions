@@ -5,15 +5,17 @@ using System.Web.Mvc;
 
 namespace Interview.Models
 {
-    public class PostAnswer
+    public class Comment
     {
-        public int PostAnswerID { get; set; }
+        public int CommentID { get; set; }
 
+        [Display(Name = "Comment")]
         [AllowHtml]
         [DataType(DataType.MultilineText)]
         [Required]
-        public string Answer { get; set; }
+        public string CommentContent { get; set; }
 
+        [Display(Name = "Commented on")]
         [Column(TypeName = "datetime2")]
         public DateTime CreatedAt { get; set; }
 

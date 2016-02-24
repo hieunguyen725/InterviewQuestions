@@ -9,17 +9,20 @@ using System.Web.Mvc;
 using Interview.Models;
 using Microsoft.AspNet.Identity;
 using Interview.ViewModels;
+using Interview.Repositories;
+using Microsoft.Security.Application;
 
 namespace Interview.Controllers
 {
     [Authorize]
     public class PostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IPostRepository repo;
         private List<string> categories;
 
-        public PostsController()
+        public PostsController(IPostRepository repo)
         {
+            this.repo = repo;
             categories = new List<string>
             {
                 "Data Structure", "Algorithm", "Operating System",
@@ -32,17 +35,38 @@ namespace Interview.Controllers
         [AllowAnonymous]
         public PartialViewResult LoadCategory(string category)
         {
-            List<Post> model;
+            IEnumerable<Post> model;
             if (category == "All")
             {
-                model = db.Posts.ToList();
+                model = repo.GetAllPosts();
             }
             else
             {
-                model = db.Posts.Where(q => q.SelectedCategory == category).ToList();
+                model = repo.GetPostByCategory(category);
             }
             ViewBag.userId = User.Identity.GetUserId();
-            return PartialView("LoadCategory", model);
+            return PartialView("_Posts", model);
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult LatestPosts()
+        {
+            var model = repo.GetLatestPosts();
+            return PartialView("_LatestPosts", model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Search(string search)
+        {
+            IEnumerable<Post> model;
+            if(string.IsNullOrEmpty(search))
+            {
+                model = repo.GetAllPosts();
+            } else
+            {
+                model = repo.GetPostBySearch(search);
+            }
+            return PartialView("_Posts", model);
         }
 
         [AllowAnonymous]
@@ -50,7 +74,7 @@ namespace Interview.Controllers
         public ActionResult Index()
         {
             ViewBag.userId = User.Identity.GetUserId();
-            return View(db.Posts.ToList());
+            return View(repo.GetAllPosts());
         }
 
         [AllowAnonymous]
@@ -63,19 +87,19 @@ namespace Interview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = repo.GetPostById(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
             post.ViewCount++;
-            db.SaveChanges();
+            repo.SaveChanges();
             PostAnswerViewModel vm = new PostAnswerViewModel
             {
                 PostID = post.PostID,
-                PostName = post.Name,
-                PostQuestion = post.PostQuestion,
-                PostAnswers = post.PostAnswers,
+                PostTitle = post.PostTitle,
+                PostContent = post.PostContent,
+                PostAnswers = post.Comments,
                 CreatedAt = post.CreatedAt,
                 User = post.User
             };
@@ -93,14 +117,14 @@ namespace Interview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,PostQuestion,SelectedCategory")] Post post)
+        public ActionResult Create([Bind(Include = "PostTitle,PostContent,SelectedCategory")] Post post)
         {
             if (ModelState.IsValid)
             {
                 post.UserID = User.Identity.GetUserId();
                 post.CreatedAt = DateTime.Now;
-                db.Posts.Add(post);
-                db.SaveChanges();
+                post.PostContent = Sanitizer.GetSafeHtmlFragment(post.PostContent);
+                repo.AddPost(post);
                 return RedirectToAction("Index");
             }
 
@@ -114,7 +138,7 @@ namespace Interview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = repo.GetPostById(id);
             if(User.Identity.GetUserId() != post.UserID)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
@@ -131,12 +155,11 @@ namespace Interview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Name,PostQuestion,CreatedAt,UserID,ViewCount,SelectedCategory")] Post post)
+        public ActionResult Edit([Bind(Include = "PostID,PostTitle,PostContent,CreatedAt,UserID,ViewCount,SelectedCategory")] Post post)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.UpdatePost(post);
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -149,7 +172,7 @@ namespace Interview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = repo.GetPostById(id);
             if (User.Identity.GetUserId() != post.UserID)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
@@ -166,19 +189,13 @@ namespace Interview.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
+            Post post = repo.GetPostById(id);
+            if (post!=null)
+            {
+                repo.DeletePost(post);
+            }
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

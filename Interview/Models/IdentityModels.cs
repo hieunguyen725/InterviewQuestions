@@ -33,7 +33,7 @@ namespace Interview.Models
         }
 
         public DbSet<Post> Posts { get; set; }
-        public DbSet<PostAnswer> PostAnswers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public static ApplicationDbContext Create()
         {

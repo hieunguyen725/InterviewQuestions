@@ -18,19 +18,20 @@ namespace Interview.ViewModels
 
         public ApplicationUser User { get; set; }
 
-        public string PostName { get; set; }
+        public string PostTitle { get; set; }
 
-        public ICollection<PostAnswer> PostAnswers { get; set; }
+        public ICollection<Comment> PostAnswers { get; set; }
 
-        public string PostQuestion { get; set; }
+        [AllowHtml]
+        public string PostContent { get; set; }
 
         /* PostAnswer's related fields */
-        public int PostAnswerID { get; set; }
-
+        public int CommentID { get; set; }
+        
         [AllowHtml]
         [DataType(DataType.MultilineText)]
         [Required]
-        public string Answer { get; set; }
+        public string CommentContent { get; set; }
         
 
     }
