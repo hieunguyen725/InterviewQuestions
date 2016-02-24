@@ -116,3 +116,8 @@ C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\HtmlSani
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\obj\Debug\Interview.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\obj\Debug\Interview.Tests.dll
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\obj\Debug\Interview.Tests.pdb
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\WebActivatorEx.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.Web.Common.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.xml
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.Web.Common.xml

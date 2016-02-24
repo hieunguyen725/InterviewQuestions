@@ -2,14 +2,15 @@
 
 @{
     ViewBag.Title = "Details";
+    var postContent = Model.PostContent;
 }
 
 <div class="content">
     <div class="row">
         <div class="col-sm-9">
             <div>
-                <h4>@Html.DisplayFor(model => model.PostName)</h4>
-                <p>@Html.DisplayFor(model => model.PostQuestion)</p>
+                <h4>@Html.DisplayFor(model => model.PostTitle)</h4>
+                <p>@Html.Raw(postContent)</p>
                 <div class="post-info">
                     <p class="post-createdat">Posted on @Html.DisplayFor(model => model.CreatedAt)</p>
                     <p class="post-username">By @Html.DisplayFor(model => model.User.UserName)</p>
@@ -22,7 +23,7 @@
                     @foreach (var answer in Model.PostAnswers)
                     {
                         <div>
-                            <p>@Html.Raw(answer.Answer)</p>
+                            <p>@Html.Raw(answer.CommentContent)</p>
                             <div class="post-info">
                                 <p class="post-createdat">Commented on @Html.DisplayFor(model => model.CreatedAt)</p>
                                 <p class="post-username">By @Html.DisplayFor(model => model.User.UserName)</p>
@@ -33,8 +34,8 @@
                         {
                             <div>
                                 <text>
-                                    @Html.ActionLink("Edit", "Edit", "PostAnswers", new { id = answer.PostAnswerID }, null) |
-                                    @Html.ActionLink("Delete", "Delete", "PostAnswers", new { id = answer.PostAnswerID }, null)
+                                    @Html.ActionLink("Edit", "Edit", "Comments", new { id = answer.CommentID }, null) |
+                                    @Html.ActionLink("Delete", "Delete", "Comments", new { id = answer.CommentID }, null)
                                 </text>
                             </div>
                         }
@@ -44,15 +45,15 @@
             </div>
 
             <div #id="answers-form">
-                @using (Html.BeginForm("CreateAnswer", "PostAnswers", FormMethod.Post))
+                @using (Html.BeginForm("AddComment", "Comments", FormMethod.Post))
             {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-md-10">
-                                @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.CommentContent, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CommentContent, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -90,7 +91,7 @@
     @Scripts.Render("~/bundles/customjs")
 
     <script>
-        CKEDITOR.replace("Answer");
+        CKEDITOR.replace("CommentContent");
     </script>
 }
 

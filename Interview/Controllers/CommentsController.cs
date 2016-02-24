@@ -10,30 +10,34 @@ using Interview.Models;
 using Interview.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.Security.Application;
+using Interview.Repositories;
 
 namespace Interview.Controllers
 {
     [Authorize]
-    public class PostAnswersController : Controller
+    public class CommentsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ICommentRepository repo;
 
+        public CommentsController(ICommentRepository repo)
+        {
+            this.repo = repo;
+        }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateAnswer([Bind(Include = "PostID, Answer")]PostAnswerViewModel vm)
+        public ActionResult AddComment([Bind(Include = "PostID, CommentContent")]PostAnswerViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                PostAnswer answer = new PostAnswer()
+                Comment comment = new Comment()
                 {
-                    Answer = Sanitizer.GetSafeHtmlFragment(vm.Answer),
+                    CommentContent = Sanitizer.GetSafeHtmlFragment(vm.CommentContent),
                     CreatedAt = DateTime.Now,
                     UserID = User.Identity.GetUserId(),
                     PostID = vm.PostID
                 };
-                db.PostAnswers.Add(answer);
-                db.SaveChanges();
+                repo.AddComment(comment);
                 return RedirectToAction("Details", "Posts", new { id = vm.PostID });
             }
             return RedirectToAction("Details", "Posts", new { id = vm.PostID });
@@ -46,12 +50,12 @@ namespace Interview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PostAnswer postAnswer = db.PostAnswers.Find(id);
-            if (postAnswer == null)
+            Comment comment = repo.GetCommentById(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(postAnswer);
+            return View(comment);
         }
 
         // POST: PostAnswers/Edit/5
@@ -59,15 +63,14 @@ namespace Interview.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostAnswerID,Answer,CreatedAt,PostID,UserID")] PostAnswer postAnswer)
+        public ActionResult Edit([Bind(Include = "CommentID,CommentContent,CreatedAt,PostID,UserID")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(postAnswer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details", "Posts", new { id= postAnswer.PostID});
+                repo.UpdateComment(comment);
+                return RedirectToAction("Details", "Posts", new { id= comment.PostID});
             }
-            return View(postAnswer);
+            return View(comment);
         }
 
         // GET: PostAnswers/Delete/5
@@ -77,7 +80,7 @@ namespace Interview.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PostAnswer postAnswer = db.PostAnswers.Find(id);
+            Comment postAnswer = repo.GetCommentById(id);
             if (postAnswer == null)
             {
                 return HttpNotFound();
@@ -90,19 +93,10 @@ namespace Interview.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PostAnswer postAnswer = db.PostAnswers.Find(id);
-            db.PostAnswers.Remove(postAnswer);
-            db.SaveChanges();
-            return RedirectToAction("Details", "Posts", new { id = postAnswer.PostID });
+            Comment comment = repo.GetCommentById(id);
+            repo.DeleteComment(comment);
+            return RedirectToAction("Details", "Posts", new { id = comment.PostID });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

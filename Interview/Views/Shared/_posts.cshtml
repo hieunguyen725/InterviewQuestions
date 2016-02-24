@@ -10,7 +10,7 @@
                 <i class="fa fa-eye"></i>
             </div>
             <div class="badge" data-toggle="tooltip" title="Comments">
-                @Html.DisplayFor(m => Model.ElementAt(i).PostAnswers.Count)
+                @Html.DisplayFor(m => Model.ElementAt(i).Comments.Count)
                 <i class="fa fa-comments-o"></i> <br/>
             </div>
             <div style="margin-top: 5px; display:block;">
@@ -21,7 +21,7 @@
             <div class="Post">
                 <h6>
                     <a href="@Url.Action("Details", "Posts", new { id = Model.ElementAt(i).PostID})">
-                        @Html.DisplayFor(m => Model.ElementAt(i).Name)
+                        @Html.DisplayFor(m => Model.ElementAt(i).PostTitle)
                     </a>
                 </h6>
                 <div class="post-info">

@@ -170,3 +170,10 @@ C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Microsoft.Owin.Secur
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\obj\Debug\Interview.csprojResolveAssemblyReference.cache
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\obj\Debug\Interview.dll
 C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\obj\Debug\Interview.pdb
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Common.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Mvc.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\WebActivatorEx.dll
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.xml
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Common.xml
+C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Mvc.xml

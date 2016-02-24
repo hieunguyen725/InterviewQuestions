@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    var postContent = Model.PostContent;
 }
 
 <h2>Delete</h2>
@@ -12,19 +13,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.PostTitle)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.PostTitle)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostQuestion)
+            @Html.DisplayNameFor(model => model.PostContent)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostQuestion)
+            @Html.Raw(postContent)
         </dd>
 
         <dt>
