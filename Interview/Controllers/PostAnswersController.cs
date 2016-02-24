@@ -13,6 +13,7 @@ using Microsoft.Security.Application;
 
 namespace Interview.Controllers
 {
+    [Authorize]
     public class PostAnswersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -576,7 +576,8 @@
     <Content Include="Views\PostAnswers\Details.cshtml" />
     <Content Include="Views\PostAnswers\Edit.cshtml" />
     <Content Include="Views\PostAnswers\Index.cshtml" />
-    <Content Include="Views\Posts\LoadCategory.cshtml" />
+    <Content Include="Views\Shared\_posts.cshtml" />
+    <Content Include="Views\Shared\_LatestPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

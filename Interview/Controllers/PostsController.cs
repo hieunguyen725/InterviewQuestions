@@ -42,7 +42,14 @@ namespace Interview.Controllers
                 model = db.Posts.Where(q => q.SelectedCategory == category).ToList();
             }
             ViewBag.userId = User.Identity.GetUserId();
-            return PartialView("LoadCategory", model);
+            return PartialView("_posts", model);
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult LatestPosts()
+        {
+            var model = db.Posts.OrderByDescending(p => p.CreatedAt).Take(10).ToList();
+            return PartialView("_LatestPosts", model);
         }
 
         [AllowAnonymous]

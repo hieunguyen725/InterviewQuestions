@@ -18,6 +18,26 @@
 
 .sm-text {
     font-size: 0.8em;
+    color: #999;
+}
+
+hr {
+    margin: 0;
+}
+
+.label {
+    margin-right: 5px;
+    font-size: 0.9em;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.btn-group, .btn {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 
@@ -34,28 +54,29 @@
     background-color: #000000 !important;
 }
 
+
 /* Index (Posts) */
 .top-btn-group {
     margin: 15px 0 10px 0;
 }
 
-.post-info #post-createdat {
+.post-info .post-createdat {
+    font-size: 0.8em;
     float: left;
+    color: #999;
 }
-.post-info #post-username {
+.post-info .post-username {
     float: right;
+    font-size: 0.8em;
+    color: #999;
 }
 
-.panel {
-    float:left;
-    margin-right: 5px;
-}
-.panel-body {
-    text-align:center;
+.category {
+    margin-top: 25px;
 }
 
 /* Posts' detail*/
 #answers-content {
-    margin-left: 75px;
+    margin: 0 0 20px 75px;
 }
 
