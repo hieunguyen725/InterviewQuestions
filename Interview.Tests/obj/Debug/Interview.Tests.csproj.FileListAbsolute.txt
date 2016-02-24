@@ -121,3 +121,10 @@ C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.T
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.Web.Common.dll
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.xml
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview.Tests\bin\Debug\Ninject.Web.Common.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\WebActivatorEx.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\Ninject.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\PagedList.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\Ninject.Web.Common.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\Ninject.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\PagedList.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview.Tests\bin\Debug\Ninject.Web.Common.xml

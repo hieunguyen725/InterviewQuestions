@@ -177,3 +177,14 @@ C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\b
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.xml
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Common.xml
 C:\Users\Long Nguyen\documents\visual studio 2015\Projects\Interview\Interview\bin\Ninject.Web.Mvc.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.Web.Common.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.Web.Mvc.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\WebActivatorEx.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.Web.Common.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\Ninject.Web.Mvc.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\PagedList.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\PagedList.Mvc.dll
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\PagedList.xml
+C:\Users\Hieu\Source\Repos\InterviewQuestions\Interview\bin\PagedList.Mvc.xml

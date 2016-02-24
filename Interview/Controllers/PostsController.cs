@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Interview.ViewModels;
 using Interview.Repositories;
 using Microsoft.Security.Application;
+using PagedList;
 
 namespace Interview.Controllers
 {
@@ -69,12 +70,21 @@ namespace Interview.Controllers
             return PartialView("_Posts", model);
         }
 
+        //[AllowAnonymous]
+        //// GET: Posts
+        //public ActionResult Index()
+        //{
+        //    ViewBag.userId = User.Identity.GetUserId();
+        //    return View(repo.GetAllPosts());
+        //}
+
         [AllowAnonymous]
-        // GET: Posts
-        public ActionResult Index()
+        // GET: Question
+        public ActionResult Index(int page = 1, int size = 5)
         {
             ViewBag.userId = User.Identity.GetUserId();
-            return View(repo.GetAllPosts());
+            PagedList<Post> model = new PagedList<Post>(repo.GetAllPosts(), page, size);
+            return View(model);
         }
 
         [AllowAnonymous]
