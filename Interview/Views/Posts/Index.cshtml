@@ -41,6 +41,18 @@
             <div class="top-btn-group">
                 @Html.ActionLink("Create a new post", "Create", "Posts", null, new { @class = "btn btn-primary btn-sm" })
             </div>
+            @using (Ajax.BeginForm("Search", "Posts", new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "post-list",
+                InsertionMode = InsertionMode.Replace
+            }, new { @class= "form-inline"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Editor("search")
+                @Html.ValidationMessage("search")
+                <button class="btn btn-default btn-sm" type="submit">Search</button>
+            }
         </div>
         <div class="row">
             <h5>Lastest Posts</h5>
@@ -51,7 +63,7 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jquery")    
+    @Scripts.Render("~/bundles/jquery")
 }
 
 

@@ -53,6 +53,20 @@ namespace Interview.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult Search(string search)
+        {
+            IEnumerable<Post> model;
+            if(string.IsNullOrEmpty(search))
+            {
+                model = db.Posts.ToList();
+            } else
+            {
+                model = db.Posts.Where(p => p.Name.Contains(search) || p.PostQuestion.Contains(search)).ToList();
+            }
+            return PartialView("_posts", model);
+        }
+
+        [AllowAnonymous]
         // GET: Posts
         public ActionResult Index()
         {
